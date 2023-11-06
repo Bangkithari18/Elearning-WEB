@@ -89,6 +89,9 @@
 <script src="assets/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="assets/AdminLTE/dist/js/adminlte.min.js"></script>
+<link rel="stylesheet" href="assets/bootstrap-toastr/toastr.css">
+<script src="assets/bootstrap-toastr/toastr.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
