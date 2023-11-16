@@ -1,3 +1,16 @@
+
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (isset($_SESSION['status'])) {
+    if ($_SESSION['status'] != "active") {
+        header('location:../Project-Elearning/login.php');
+    }
+} else {
+    echo "<script>alert('Status not set in session');</script>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,9 +43,6 @@
   <link rel="stylesheet"  href="assets/AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet"  href="assets/AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-
-
-  
 <!-- jQuery -->
 <script src="assets/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -67,9 +77,6 @@
 <script src="assets/AdminLTE/dist/js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="assets/AdminLTE/dist/js/pages/dashboard.js"></script>
-
-
-
 <!-- jQuery -->
 <script src="assets/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -89,6 +96,11 @@
 <script src="assets/AdminLTE/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- AdminLTE App -->
 <script src="assets/AdminLTE/dist/js/adminlte.min.js"></script>
+
+
+<!-- Bootstrap 4 -->
+<script src="assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <link rel="stylesheet" href="assets/bootstrap-toastr/toastr.css">
 <script src="assets/bootstrap-toastr/toastr.js"></script>
 

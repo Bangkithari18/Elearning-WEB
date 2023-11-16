@@ -11,6 +11,11 @@
         <td><?php echo $result['username']?></td>
         <td><?php echo $result['password']?></td>
         <td><?php if($result['status'] == 1) {echo "Aktif";}else{echo "Tidak Aktif";}?></td>
-        <td><button class="btn btn-sm btn-warning">Edit</button>&nbsp;<button class="btn btn-sm btn-danger">Delete</button></td>
+        <td>
+            <button class="btn btn-sm btn-warning" onclick="editUser('<?php echo $result['user_id']?>')" 
+                value="<?php echo $result['user_id']?>">Edit</button>
+                &nbsp;<button class="btn btn-sm btn-danger" onclick="deleteUser('<?php echo $result['user_id']?>')" 
+                value="<?php echo $result['user_id']?>">Delete</button>
+        </td>
     </tr>
 <?php }?>

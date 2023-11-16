@@ -17,7 +17,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -27,13 +26,14 @@
               <div class="card-header">
                 <h3 class="card-title">Data User</h3>
               </div>
+              </div>
+             
+              </div>           
              
               <!-- /.card-header -->
               <div class="card-body">
               <div class="form-group">
                 <button type="button" class="btn btn-info btn-sm" id="btn_add">Add Data</button>
-                <button type="button" class="btn btn-warning btn-sm">Edit Data</button>
-                <button type="button" class="btn btn-danger btn-sm">Delete Data</button>
               </div>
                 <table id="tbDataUser" class="table table-bordered table-hover">
                   <thead>
@@ -61,6 +61,7 @@
     </section>
     <!-- /.content -->
   </div>
+  <div id="box-modal-edit"></div>
   <div class="modal fade" id="modal-add">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -91,7 +92,7 @@
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>
+</div>
       <!-- /.modal -->
 
 <?php include 'partial/footer.php'; ?>
