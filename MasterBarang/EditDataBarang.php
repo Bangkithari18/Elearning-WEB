@@ -13,9 +13,9 @@ $create_date = date('Y-m-d H:i:s');
 $update_by = $_SESSION['username'];
 
 if (empty($data['error'])) {
-    $query = " INSERT INTO tb_barang set id_barang='$id_barang', nama_barang='$nama_barang', 
+    $query = " UPDATE tb_barang set nama_barang='$nama_barang', 
     jenis_barang='$jenis_barang', satuan_barang='$satuan_barang', stok_awal='$stok_awal',
-    harga='$harga', create_date= '$create_date', update_by='$update_by'";
+    harga='$harga', create_date= '$create_date', update_by='$update_by' WHERE id_barang='$id_barang'";
 
     mysqli_query($koneksi, $query) or die("gagal insert" . mysqli_error($koneksi));
     $data = 1;

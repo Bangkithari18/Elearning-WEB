@@ -2,28 +2,81 @@ $(function () {
   $("#tbDataBarang").DataTable();
   loadDataTable();
 
-  $("#btnAddDataBarang").on("click", function () {
-    resetModal();
+  $("#btnDeleteDataBarang").on("click", function () {
+    var Selected = $("#tbDataBarang tbody tr td .chk_barang:checked");
+    if (Selected.length > 0) {
+      $(Selected).each(function () {
+        let param = new Array();
+        param.push($(this).val());
+        DeleteDataBarang(param);
+      });
+    } else {
+      alert("Pilih Barang terlebih dahulu");
+    }
+  });
+
+  $(".btn_simpan_barang").on("click", function () {
+    var idBarang = $("#idBarang").val();
+    var namaBarang = $("#namaBarang").val();
+    var jenisBarang = $("#jenisBarang").val();
+    var satuanBarang = $("#satuanBarang").val();
+    var stokBarang = $("#stokBarang").val();
+    var hargaBarang = $("#hargaBarang").val();
+
+    if (namaBarang == "") {
+      alert("Nama Barang Wajib di isi !!!");
+      return false;
+    }
+    if (jenisBarang == "") {
+      alert("Jenis Barang Wajib di isi !!!");
+      return false;
+    }
+    if (satuanBarang == "") {
+      alert("Satuan Barang Wajib di isi !!!");
+      return false;
+    }
+    if (stokBarang == "") {
+      alert("Stok Barang Wajib di isi !!!");
+      return false;
+    }
+    if (hargaBarang == "") {
+      alert("Harga Barang Wajib di isi !!!");
+      return false;
+    }
+
+    var str_data =
+      "id_barang=" +
+      idBarang +
+      "&nama_barang=" +
+      namaBarang +
+      "&jenis_barang=" +
+      jenisBarang +
+      "&satuan_barang=" +
+      satuanBarang +
+      "&stok_awal=" +
+      stokBarang +
+      "&harga=" +
+      hargaBarang;
     $.ajax({
-      url: "MasterBarang/modalAdd.php",
-      type: "get",
+      type: "POST",
+      url: "MasterBarang/addDataBarang.php",
+      dataType: "text",
+      data: str_data,
       success: function (res) {
-        console.log(res);
-        $(".modal-add-barang").html(res);
-        $("#modal-data-barang").modal("show");
+        if (res == "1") {
+          $("#modal-add-barang").modal("hide");
+          loadDataTable();
+          toastr.success("data berhasil di simpan");
+        } else {
+          loadDataTable();
+          toastr.warning("data gagal di simpan");
+          console.log(res);
+        }
       },
     });
   });
 
-  function resetModal() {
-    $("#namaBarang").val("");
-    $("#jenisBarang").val("");
-    $("#satuanBarang").val("");
-    $("#stokBarang").val("");
-    $("#hargaBarang").val("");
-  }
-
-  $("#btn_simpan_barang").on("click", function () {
+  $("#btn_update_barang").on("click", function () {
     var idBarang = $("#idBarang").val();
     var namaBarang = $("#namaBarang").val();
     var jenisBarang = $("#jenisBarang").val();
@@ -65,75 +118,24 @@ $(function () {
       stokBarang +
       "&harga=" +
       hargaBarang;
-    console.log(str_data);
     $.ajax({
       type: "POST",
-      url: "MasterBarang/addDataBarang.php",
+      url: "MasterBarang/EditDataBarang.php",
       dataType: "text",
       data: str_data,
       success: function (res) {
         if (res == "1") {
-          $("#modal-data-barang").modal("hide");
+          $("#modal-edit-barang").modal("hide");
           loadDataTable();
-          toastr.success("data berhasil di simpan");
+          toastr.success("data berhasil di ubah");
         } else {
           loadDataTable();
-          toastr.success("data gagal di simpan");
+          toastr.warning("data gagal di ubah");
+          console.log(res);
         }
       },
     });
   });
-
-  //   $("#btn_update").on("click", function () {
-  //     var userID = $("#userid_e").val();
-  //     var username = $("#username_e").val();
-  //     var password = $("#password_e").val();
-  //     var status = $("#status_e").val();
-
-  //     if (userID == "") {
-  //       alert("User Id Wajib di isi !!!");
-  //       return false;
-  //     }
-  //     if (username == "") {
-  //       alert("Username Wajib di isi !!!");
-  //       return false;
-  //     }
-  //     if (password == "") {
-  //       alert("Password Wajib di isi !!!");
-  //       return false;
-  //     }
-  //     if (status == "") {
-  //       alert("Status Wajib di isi !!!");
-  //       return false;
-  //     }
-
-  //     var str_data =
-  //       "user_id=" +
-  //       userID +
-  //       "&username=" +
-  //       username +
-  //       "&password=" +
-  //       password +
-  //       "&status=" +
-  //       status;
-
-  //     $.ajax({
-  //       type: "POST",
-  //       url: "formUser/editUser.php",
-  //       dataType: "text",
-  //       data: str_data,
-  //       success: function (res) {
-  //         if (res == "1") {
-  //           $("#modal-edit").modal("hide");
-  //           loadDataTable();
-  //           toastr.success("data berhasil di Update");
-  //         } else {
-  //           loadDataTable();
-  //           toastr.success("data gagal di Update");
-  //         }
-  //       },
-  //     });
-  //   });
 });
 
 function loadDataTable() {
@@ -150,34 +152,75 @@ function loadDataTable() {
   });
 }
 
-// function editUser(user_id) {
-//   $.ajax({
-//     url: "formUser/modal_edit.php",
-//     type: "get",
-//     data: {
-//       user_id: user_id,
-//     },
-//     success: function (res) {
-//       $("#box-modal-edit").html(res);
-//       $("#modal-edit").modal("show");
-//     },
-//   });
-// }
+function DeleteDataBarang(param) {
+  param.forEach((item) => {
+    $.ajax({
+      url: "MasterBarang/DeleteBarang.php",
+      type: "POST",
+      data: {
+        id_barang: item,
+      },
+      success: function (res) {
+        if (res == "1") {
+          toastr.success("data berhasil di hapus");
+        } else {
+          toastr.warning(res);
+        }
+        loadDataTable();
+      },
+    });
+  });
+}
 
-// function deleteUser(user_id) {
-//   $.ajax({
-//     url: "formUser/deleteUser.php",
-//     type: "POST",
-//     data: {
-//       user_id: user_id,
-//     },
-//     success: function (res) {
-//       if (res == "1") {
-//         toastr.success("data berhasil di hapus");
-//       } else {
-//         toastr.warning(res);
-//       }
-//       loadDataTable();
-//     },
-//   });
-// }
+function resetModal() {
+  $("#namaBarang").val("");
+  $("#jenisBarang").val("");
+  $("#satuanBarang").val("");
+  $("#stokBarang").val("");
+  $("#hargaBarang").val("");
+}
+
+function AddDataBarang() {
+  $.ajax({
+    url: "MasterBarang/ModalAdd.php",
+    type: "get",
+    success: function (res) {
+      $(".box-modal").html(res);
+      $("#modal-add-barang").modal("show");
+      resetModal();
+    },
+    error: function (xhr, status, error) {
+      alert("fail");
+    },
+  });
+}
+
+function EditDataBarang() {
+  var Selected = $(".chk_barang:checked");
+  if (Selected.length > 0) {
+    if (Selected.length == 1) {
+      let CheckId = new Array();
+      $(Selected).each(function () {
+        CheckId.push($(this).val());
+        let param = "id_barang=" + CheckId;
+        EditDetail(param);
+      });
+    } else {
+      alert("Maksimum pilih barang 1");
+    }
+  } else {
+    alert("Pilih Satu Barang");
+  }
+}
+
+function EditDetail(id_barang) {
+  $.ajax({
+    url: "MasterBarang/ModalEdit.php",
+    type: "get",
+    data: id_barang,
+    success: function (res) {
+      $(".box-modal").html(res);
+      $("#modal-edit-barang").modal("show");
+    },
+  });
+}

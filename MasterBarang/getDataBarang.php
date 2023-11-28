@@ -7,7 +7,7 @@ $exec = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
 while ($result = mysqli_fetch_array($exec)) {
 ?>
     <tr>
-        <td><input type="checkbox" name="chk_barang" id="selected_barang" value="<?php echo $result['id_barang'] ?>"></td>
+        <td><input type="checkbox" name="chk_barang" id="selected_barang" class="chk_barang" value="<?php echo $result['id_barang'] ?>"></td>
         <td><?php echo $result['id_barang'] ?></td>
         <td><?php echo $result['nama_barang'] ?></td>
         <td><?php echo $result['jenis_barang'] ?></td>

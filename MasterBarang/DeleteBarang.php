@@ -1,9 +1,9 @@
 <?php
 include "../koneksi.php";
-$user_id = $_POST['user_id'];
+$id_barang = $_POST['id_barang'];
 
 if (empty($data['error'])) {
-    $query = " DELETE FROM tb_user WHERE user_id='$user_id'";
+    $query = " DELETE FROM tb_barang WHERE id_barang='$id_barang'";
 
     mysqli_query($koneksi, $query) or die("gagal delete" . mysqli_error($koneksi));
     $data = 1;
@@ -11,5 +11,3 @@ if (empty($data['error'])) {
     $data = 'gagal';
 }
 echo json_encode($data);
-?>
-<script src="MasterBarang/MasterDataBarang.js"></script>

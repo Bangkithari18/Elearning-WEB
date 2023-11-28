@@ -7,7 +7,7 @@ if (isset($_SESSION['status'])) {
     header('location:../Project-Elearning/login.php');
   }
 } else {
-  echo "<script>alert('Status not set in session');</script>";
+  header('location:../Project-Elearning/login.php');
 }
 ?>
 <!DOCTYPE html>
