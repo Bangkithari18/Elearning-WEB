@@ -2,19 +2,6 @@ $(function () {
   $("#tbDataBarang").DataTable();
   loadDataTable();
 
-  $("#btnDeleteDataBarang").on("click", function () {
-    var Selected = $("#tbDataBarang tbody tr td .chk_barang:checked");
-    if (Selected.length > 0) {
-      $(Selected).each(function () {
-        let param = new Array();
-        param.push($(this).val());
-        DeleteDataBarang(param);
-      });
-    } else {
-      alert("Pilih Barang terlebih dahulu");
-    }
-  });
-
   $(".btn_simpan_barang").on("click", function () {
     var idBarang = $("#idBarang").val();
     var namaBarang = $("#namaBarang").val();
@@ -153,22 +140,20 @@ function loadDataTable() {
 }
 
 function DeleteDataBarang(param) {
-  param.forEach((item) => {
-    $.ajax({
-      url: "MasterBarang/DeleteBarang.php",
-      type: "POST",
-      data: {
-        id_barang: item,
-      },
-      success: function (res) {
-        if (res == "1") {
-          toastr.success("data berhasil di hapus");
-        } else {
-          toastr.warning(res);
-        }
-        loadDataTable();
-      },
-    });
+  $.ajax({
+    url: "MasterBarang/DeleteBarang.php",
+    type: "POST",
+    data: {
+      id_barang: param,
+    },
+    success: function (res) {
+      if (res == "1") {
+        toastr.success("data berhasil di hapus");
+      } else {
+        toastr.warning(res);
+      }
+      loadDataTable();
+    },
   });
 }
 
@@ -223,4 +208,15 @@ function EditDetail(id_barang) {
       $("#modal-edit-barang").modal("show");
     },
   });
+}
+
+function Delete() {
+  var Selected = $(".chk_barang:checked");
+  if (Selected.length > 0) {
+    $(Selected).each(function () {
+      DeleteDataBarang($(this).val());
+    });
+  } else {
+    alert("Pilih Barang terlebih dahulu");
+  }
 }

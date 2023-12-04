@@ -36,7 +36,7 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item menu-open">
-          <a href="assets/AdminLTE/#" class="nav-link active">
+          <a href="index.php" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Home
@@ -44,9 +44,8 @@
             </p>
           </a>
         </li>
-
         <li class="nav-item">
-          <a href="assets/AdminLTE/#" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="nav-icon far fa-envelope"></i>
             <p>
               Transaksi
@@ -55,9 +54,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="assets/AdminLTE/pages/mailbox/mailbox.html" class="nav-link">
+              <a href="BarangMasuk.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Penjualan</p>
+                <p>Barang Masuk</p>
+              </a>
+              <a href="BarangKeluar.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Barang Keluar</p>
               </a>
             </li>
           </ul>
