@@ -1,23 +1,23 @@
 $(function () {
-  $("#tbDataSatuan").dataTable();
+  $("#tbJenisBarang").dataTable();
   loadDataTable();
 
   $("#btn_simpan").on("click", function () {
-    var satuanId = $("#idsatuan").val();
-    var satuan_barang = $("#satuan_barang").val();
+    var JenisId = $("#idJenis").val();
+    var SatuanJenis = $("#satuan_jenis").val();
 
-    if (satuanId == "") {
-      alert("Id Satuan Wajib di isi !!!");
+    if (JenisId == "") {
+      alert("Id Jenis Wajib di isi !!!");
       return false;
     }
-    if (satuan_barang == "") {
-      alert("Satuan Barang Wajib di isi !!!");
+    if (SatuanJenis == "") {
+      alert("Satuan Jenis Wajib di isi !!!");
       return false;
     }
-    var str_data = "id_satuan=" + satuanId + "&satuan=" + satuan_barang;
+    var str_data = "id_jenis=" + JenisId + "&satuan_jenis=" + SatuanJenis;
     $.ajax({
       type: "POST",
-      url: "MasterSatuan/AddDataSatuan.php",
+      url: "MasterJenisBarang/AddJenisBarang.php",
       dataType: "text",
       data: str_data,
       success: function (res) {
@@ -34,23 +34,22 @@ $(function () {
   });
 
   $("#btn_update").on("click", function () {
-    var satuanId = $("#idsatuan").val();
-    var satuan_barang = $("#satuan_barang").val();
+    var JenisId = $("#IdJenis").val();
+    var SatuanJenis = $("#satuan_jenis").val();
 
-    if (satuanId == "") {
-      alert("Id Satuan Wajib di isi !!!");
+    if (JenisId == "") {
+      alert("Id Jenis Wajib di isi !!!");
       return false;
     }
-    if (satuan_barang == "") {
-      alert("Satuan Barang Wajib di isi !!!");
+    if (SatuanJenis == "") {
+      alert("Satuan Jenis Wajib di isi !!!");
       return false;
     }
-
-    var str_data = "id_satuan=" + satuanId + "&satuan=" + satuan_barang;
+    var str_data = "id_jenis=" + JenisId + "&satuan_jenis=" + SatuanJenis;
 
     $.ajax({
       type: "POST",
-      url: "MasterSatuan/EditDataSatuan.php",
+      url: "MasterJenisBarang/EditJenisBarang.php",
       dataType: "text",
       data: str_data,
       success: function (res) {
@@ -69,21 +68,21 @@ $(function () {
 
 function loadDataTable() {
   $.ajax({
-    url: "MasterSatuan/GetDataSatuan.php",
+    url: "MasterJenisBarang/GetData.php",
     type: "get",
     success: function (res) {
-      $("#tbDataSatuan").dataTable().fnClearTable();
-      $("#tbDataSatuan").dataTable().fnDraw();
-      $("#tbDataSatuan").dataTable().fnDestroy();
-      $("#tbDataSatuan tbody").html(res);
-      $("#tbDataSatuan").dataTable();
+      $("#tbJenisBarang").dataTable().fnClearTable();
+      $("#tbJenisBarang").dataTable().fnDraw();
+      $("#tbJenisBarang").dataTable().fnDestroy();
+      $("#tbJenisBarang tbody").html(res);
+      $("#tbJenisBarang").dataTable();
     },
   });
 }
 
-function AddDataSatuan() {
+function AddJenisBarang() {
   $.ajax({
-    url: "MasterSatuan/ModalAddSatuan.php",
+    url: "MasterJenisBarang/ModalAdd.php",
     type: "get",
     success: function (res) {
       $("#box-modal").html(res);
@@ -100,12 +99,12 @@ function resetModal() {
   $("#satuan_barang").val("");
 }
 
-function EditDataSatuan(id_satuan) {
+function EditJenisBrang(id_jenis) {
   $.ajax({
-    url: "MasterSatuan/ModalEditSatuan.php",
+    url: "MasterJenisBarang/ModalEdit.php",
     type: "get",
     data: {
-      id_satuan: id_satuan,
+      id_jenis: id_jenis,
     },
     success: function (res) {
       $("#box-modal").html(res);
@@ -114,12 +113,12 @@ function EditDataSatuan(id_satuan) {
   });
 }
 
-function DeleteDataSatuan(id_satuan) {
+function DeleteJenisBrang(id_jenis) {
   $.ajax({
-    url: "MasterSatuan/DeleteDataSatuan.php",
+    url: "MasterJenisBarang/DeleteJenisBarang.php",
     type: "POST",
     data: {
-      id_satuan: id_satuan,
+      id_jenis: id_jenis,
     },
     success: function (res) {
       if (res == "1") {

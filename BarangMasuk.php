@@ -30,8 +30,19 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-info btn-sm" onclick="AddBarangMasuk();">Add Data</button>
+                    <div class="row">
+                        <div class="col-6 text-left">
+                            <label for="start">From</label>
+                            <input type="date" name="start" style="width: 150px;border-radius: 5px;border: 1px solid #e1e1e1;padding: 3px 3px 3px 3px;height: 35px;" id="StartDate">
+                            <label for="end">To</label>
+                            <input type="date" name="end" style="width: 150px;border-radius: 5px;border: 1px solid #e1e1e1;padding: 3px 3px 3px 3px;height: 35px;" id="EndDate">
+                            <button class="btn btn-info btn-sm" onclick="SubmitFilterData();">Filter Data</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-info btn-sm" onclick="AddBarangMasuk();">Add Data</button>
+                            </div>
+                        </div>
                     </div>
                     <table id="tbDataBarangMasuk" class="table table-bordered table-hover">
                         <thead>

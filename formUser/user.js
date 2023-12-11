@@ -1,5 +1,5 @@
 $(function () {
-  $("#tbDataUser").DataTable();
+  $("#tbDataUser").dataTable();
   loadDataTable();
 
   $("#btn_add").on("click", function () {
@@ -122,9 +122,9 @@ function loadDataTable() {
     url: "formUser/getData.php",
     type: "get",
     success: function (res) {
-      $("#tbDataUser").DataTable().fnClearTable;
-      $("#tbDataUser").DataTable().fnDraw;
-      $("#tbDataUser").DataTable().fnDestroy;
+      $("#tbDataUser").dataTable().fnClearTable();
+      $("#tbDataUser").dataTable().fnDraw();
+      $("#tbDataUser").dataTable().fnDestroy();
       $("#tbDataUser tbody").html(res);
       $("#tbDataUser").dataTable();
     },

@@ -1,5 +1,5 @@
 $(function () {
-  $("#tbDataBarang").DataTable();
+  $("#tbDataBarang").dataTable();
   loadDataTable();
 
   $(".btn_simpan_barang").on("click", function () {
@@ -130,9 +130,9 @@ function loadDataTable() {
     url: "MasterBarang/getDataBarang.php",
     type: "get",
     success: function (res) {
-      $("#tbDataBarang").DataTable().fnClearTable;
-      $("#tbDataBarang").DataTable().fnDraw;
-      $("#tbDataBarang").DataTable().fnDestroy;
+      $("#tbDataBarang").dataTable().fnClearTable();
+      $("#tbDataBarang").dataTable().fnDraw();
+      $("#tbDataBarang").dataTable().fnDestroy();
       $("#tbDataBarang tbody").html(res);
       $("#tbDataBarang").dataTable();
     },

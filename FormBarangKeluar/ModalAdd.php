@@ -1,12 +1,12 @@
 <?php
 include "../koneksi.php";
-$query = "SELECT MAX(id_masuk) AS id_masuk from tb_barang_masuk";
+$query = "SELECT MAX(id_keluar) AS id_keluar from tb_barang_keluar";
 $exec = mysqli_query($koneksi, $query);
 $response = mysqli_fetch_array($exec);
-$code = $response['id_masuk'];
+$code = $response['id_keluar'];
 $rand =  (int) substr($code, 12, 4);
 $rand++;
-$char = "TM";
+$char = "TK";
 $tgl = date("Ymd");
 $code_barang = $char . '-' . $tgl . '-' . sprintf("%04s", $rand);
 ?>
@@ -14,16 +14,16 @@ $code_barang = $char . '-' . $tgl . '-' . sprintf("%04s", $rand);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Data Barang Masuk</h4>
+                <h4 class="modal-title">Add Data Barang keluar</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <label for="idmasuk">ID Masuk</label>
-                <input type="text" class="form-control" id="idMasuk" value="<?php echo $code_barang; ?>" placeholder="Id Masuk" readonly>
-                <label for="tanggalmasuk">Tanggal Masuk</label>
-                <input type="date" class="form-control" id="TglMasuk" placeholder="Tanggal Masuk">
+                <label for="idkeluar">ID Keluar</label>
+                <input type="text" class="form-control" id="idKeluar" value="<?php echo $code_barang; ?>" placeholder="Id Keluar" readonly>
+                <label for="tanggalkeluar">Tanggal keluar</label>
+                <input type="date" class="form-control" id="TglKeluar" placeholder="Tanggal Keluar">
                 <label for="idbarang">ID Barang</label>
                 <select name="idbarang" class="form-control select2bs4" id="IdBarang" title="IdBarang" onchange="SelectedBarang(this);">
                     <?php
@@ -39,8 +39,8 @@ $code_barang = $char . '-' . $tgl . '-' . sprintf("%04s", $rand);
                 <input type="text" class="form-control" id="NamaBarang" placeholder="Nama Barang" readonly>
                 <label for="stok">Stok Barang</label>
                 <input type="number" min="0" class="form-control" id="StokBarang" placeholder="Stok Barang" readonly>
-                <label for="stok">Jumlah Masuk</label>
-                <input type="number" min="0" class="form-control" id="JumlahMasuk" placeholder="Jumlah Masuk">
+                <label for="stok">Jumlah keluar</label>
+                <input type="number" min="0" class="form-control" id="JumlahKeluar" placeholder="Jumlah keluar">
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
@@ -49,5 +49,5 @@ $code_barang = $char . '-' . $tgl . '-' . sprintf("%04s", $rand);
         </div>
     </div>
 </div>
-<script src="FormBarangMasuk/MasterDataBarangMasuk.js"></script>
+<script src="FormBarangkeluar/MasterDataBarangkeluar.js"></script>
 <!-- /.modal -->

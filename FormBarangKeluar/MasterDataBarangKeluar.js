@@ -1,44 +1,44 @@
 $(function () {
-  $("#tbDataBarangMasuk").dataTable();
   $(".select2bs4").select2({
     theme: "bootstrap4",
   });
   loadDataTable();
 
   $(".btn_simpan_barang").on("click", function () {
-    var IdMasuk = $("#idMasuk").val();
-    var TglMasuk = $("#TglMasuk").val();
+    var IdKeluar = $("#idKeluar").val();
+    var TglKeluar = $("#TglKeluar").val();
     var Idbarang = $(".select2bs4").val();
-    var JumlahMasuk = $("#JumlahMasuk").val();
+    var JumlahKeluar = $("#JumlahKeluar").val();
 
-    if (TglMasuk == "") {
-      alert("Tanggal Masuk Wajib di isi !!!");
+    if (TglKeluar == "") {
+      alert("Tanggal Keluar Wajib di isi !!!");
       return false;
     }
     if (Idbarang == "") {
       alert("ID Barang Wajib di isi !!!");
       return false;
     }
-    if (JumlahMasuk == "") {
-      alert("Jumlah Masuk Wajib di isi !!!");
+    if (JumlahKeluar == "") {
+      alert("Jumlah Keluar Wajib di isi !!!");
       return false;
     }
 
     var str_data =
-      "id_masuk=" +
-      IdMasuk +
-      "&tanggal_masuk=" +
-      TglMasuk +
+      "id_keluar=" +
+      IdKeluar +
+      "&tanggal_keluar=" +
+      TglKeluar +
       "&barang_id=" +
       Idbarang +
-      "&jumlah_masuk=" +
-      JumlahMasuk;
+      "&jumlah_keluar=" +
+      JumlahKeluar;
     $.ajax({
       type: "POST",
-      url: "FormBarangMasuk/AddDataBarangMasuk.php",
+      url: "FormBarangKeluar/AddDataBarangKeluar.php",
       dataType: "text",
       data: str_data,
       success: function (res) {
+        debugger;
         if (res == "1") {
           $("#modal-add").modal("hide");
           loadDataTable();
@@ -57,14 +57,14 @@ $(function () {
 
 function loadDataTable() {
   $.ajax({
-    url: "FormBarangMasuk/GetDataBarang.php",
+    url: "FormBarangKeluar/GetDataBarang.php",
     type: "get",
     success: function (res) {
-      $("#tbDataBarangMasuk").dataTable().fnClearTable();
-      $("#tbDataBarangMasuk").dataTable().fnDraw();
-      $("#tbDataBarangMasuk").dataTable().fnDestroy();
-      $("#tbDataBarangMasuk tbody").html(res);
-      $("#tbDataBarangMasuk").dataTable({
+      $("#tbDataBarangKeluar").dataTable().fnClearTable();
+      $("#tbDataBarangKeluar").dataTable().fnDraw();
+      $("#tbDataBarangKeluar").dataTable().fnDestroy();
+      $("#tbDataBarangKeluar tbody").html(res);
+      $("#tbDataBarangKeluar").dataTable({
         lengthMenu: [
           [10, 25, 50, -1],
           [10, 25, 50, "All"],
@@ -75,9 +75,9 @@ function loadDataTable() {
           {
             extend: "excelHtml5",
             text: "Report Excel",
-            title: "Data Barang Masuk",
+            title: "Data Barang Keluar",
             exportOptions: {
-              colum: [0, 1, 2, 3, 4, 5],
+              colum: [0, 1, 2, 3, 4],
               modifier: {
                 page: "current",
               },
@@ -86,7 +86,7 @@ function loadDataTable() {
           {
             extend: "pdf",
             text: "Report PDF",
-            title: "Data Barang Masuk",
+            title: "Data Barang Keluar",
             exportOptions: {
               colum: [0, 1, 2, 3, 4, 5],
             },
@@ -116,11 +116,11 @@ function SubmitFilterData() {
 
   let str_data = "start=" + Start + "&end=" + End;
   $.ajax({
-    url: "FormBarangMasuk/FilterData.php",
+    url: "FormBarangKeluar/FilterData.php",
     type: "get",
     data: str_data,
     success: function (res) {
-      $("#tbDataBarangMasuk tbody").html(res);
+      $("#tbDataBarangKeluar tbody").html(res);
     },
     error: function (xhr, status, error) {
       console.error("Failed to load data: ", error);
@@ -128,12 +128,12 @@ function SubmitFilterData() {
   });
 }
 
-function DeleteBarangMasuk(param) {
+function DeleteBarangKeluar(param) {
   $.ajax({
-    url: "FormBarangMasuk/DeleteBarangMasuk.php",
+    url: "FormBarangKeluar/DeleteBarangKeluar.php",
     type: "POST",
     data: {
-      id_masuk: param,
+      id_keluar: param,
     },
     success: function (res) {
       if (res == "1") {
@@ -147,19 +147,18 @@ function DeleteBarangMasuk(param) {
 }
 
 function resetModal() {
-  $("#TglMasuk").val("");
+  $("#TglKeluar").val("");
   $("#IdBarang").val("");
   $("#NamaBarang").val("");
   $("#StokBarang  ").val("");
-  $("#JumlahMasuk").val("");
+  $("#JumlahKeluar").val("");
 }
 
-function AddBarangMasuk() {
+function AddBarangKeluar() {
   $.ajax({
-    url: "FormBarangMasuk/ModalAdd.php",
+    url: "FormBarangKeluar/ModalAdd.php",
     type: "get",
     success: function (res) {
-      debugger;
       $("#box-modal").html(res);
       $("#modal-add").modal("show");
       resetModal();
@@ -173,7 +172,7 @@ function AddBarangMasuk() {
 function SelectedBarang(param) {
   let str_data = "Id=" + $(param).val();
   $.ajax({
-    url: "FormBarangMasuk/SelectedBarang.php",
+    url: "FormBarangKeluar/SelectedBarang.php",
     type: "get",
     data: str_data,
     dataType: "json",
@@ -187,11 +186,11 @@ function SelectedBarang(param) {
   });
 }
 
-function EditBarangMasuk(param) {
+function EditBarangkeluar(param) {
   $.ajax({
-    url: "FormBarangMasuk/ModalEdit.php",
+    url: "FormBarangKeluar/ModalEdit.php",
     type: "get",
-    data: "id_masuk=" + param,
+    data: "id_keluar=" + param,
     success: function (res) {
       $("#box-modal").html(res);
       $("#modal-edit").modal("show");
@@ -200,36 +199,36 @@ function EditBarangMasuk(param) {
 }
 
 function UpdateBarang() {
-  var IdMasuk = $("#idMasuk").val();
-  var TglMasuk = $("#TglMasuk").val();
+  var IdKeluar = $("#idKeluar").val();
+  var TglKeluar = $("#TglKeluar").val();
   var Idbarang = $(".select2bs4").val();
-  var JumlahMasuk = $("#JumlahMasuk").val();
+  var JumlahKeluar = $("#JumlahKeluar").val();
 
-  if (TglMasuk == "") {
-    alert("Tanggal Masuk Wajib di isi !!!");
+  if (TglKeluar == "") {
+    alert("Tanggal Keluar Wajib di isi !!!");
     return false;
   }
   if (Idbarang == "") {
     alert("ID Barang Wajib di isi !!!");
     return false;
   }
-  if (JumlahMasuk == "") {
-    alert("Jumlah Masuk Wajib di isi !!!");
+  if (JumlahKeluar == "") {
+    alert("Jumlah Keluar Wajib di isi !!!");
     return false;
   }
 
   var str_data =
-    "id_masuk=" +
-    IdMasuk +
-    "&tanggal_masuk=" +
-    TglMasuk +
+    "id_keluar=" +
+    IdKeluar +
+    "&tanggal_keluar=" +
+    TglKeluar +
     "&barang_id=" +
     Idbarang +
-    "&jumlah_masuk=" +
-    JumlahMasuk;
+    "&jumlah_keluar=" +
+    JumlahKeluar;
   $.ajax({
     type: "POST",
-    url: "FormBarangMasuk/EditDataBarangMasuk.php",
+    url: "FormBarangKeluar/EditDataBarangKeluar.php",
     dataType: "text",
     data: str_data,
     success: function (res) {

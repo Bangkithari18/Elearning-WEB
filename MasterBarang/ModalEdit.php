@@ -28,15 +28,19 @@ $harga = $response['harga'];
                 <input type="text" class="form-control" id="namaBarang" value="<?php echo $nama_barang; ?>">
                 <label for="jenis">Jenis Barang</label>
                 <select name="jenis" class="form-control" id="jenisBarang">
-                    <option <?php if ($jenis_barang == "ATK") {
-                                echo 'selected';
-                            } ?>>ATK</option>
-                    <option <?php if ($jenis_barang == "Minuman") {
-                                echo 'selected';
-                            } ?>>Minuman</option>
-                    <option <?php if ($jenis_barang == "Makanan") {
-                                echo 'selected';
-                            } ?>>Makanan</option>
+                    <?php
+                    include "./koneksi.php";
+                    $query = "SELECT * FROM tb_jenis_barang";
+                    $exec = mysqli_query($koneksi, $query);
+                    while ($response = mysqli_fetch_array($exec)) {
+                        if ($jenis_barang == $response['Id_Jenis']) {
+                            $selected = "selected";
+                        } else {
+                            $selected = "";
+                        }
+                        echo "<option $selected value='" . $response["Id_Jenis"] . "'>" . $response["Jenis"] . "</option>";
+                    }
+                    ?>
                 </select>
                 <label for="satuan">Satuan Barang</label>
                 <select name="satuan" class="form-control" id="satuanBarang">

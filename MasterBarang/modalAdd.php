@@ -25,9 +25,14 @@ $code_barang = $char . sprintf("%004s", $rand);
                 <input type="text" class="form-control" id="namaBarang" placeholder="Nama Brang">
                 <label for="jenis">Jenis Barang</label>
                 <select name="jenis" class="form-control" id="jenisBarang" title="jenisbarang">
-                    <option>ATK</option>
-                    <option>Minuman</option>
-                    <option>Makanan</option>
+                    <?php
+                    include "./koneksi.php";
+                    $query = "SELECT * FROM tb_jenis_barang";
+                    $exec = mysqli_query($koneksi, $query);
+                    while ($response = mysqli_fetch_array($exec)) {
+                        echo "<option value='" . $response["Id_Jenis"] . "'>" . $response["Jenis"] . "</option>";
+                    }
+                    ?>
                 </select>
                 <label for="satuan">Satuan Barang</label>
                 <select name="satuan" class="form-control" id="satuanBarang" title="satuanBarang">
